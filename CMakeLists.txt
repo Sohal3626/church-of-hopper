@@ -12,6 +12,8 @@ find_package(glm CONFIG REQUIRED)
 
 add_executable(${PROJECT_NAME}
         src/main.cpp
+        src/dataLoader/Material.h
+        src/dataLoader/Material.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
