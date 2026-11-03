@@ -9,7 +9,7 @@
 #include <ostream>
 #include <string>
 
-#include "stb_img.h"
+#include "stb_image.h"
 
 class Texture {
 private:

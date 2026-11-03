@@ -2,7 +2,7 @@
 // Created by desktop on 26. 4. 26..
 //
 #include "Material.h"
-#include "stb_img.h"
+#include "stb_image.h"
 
 #include <istream>
 #include <fstream>

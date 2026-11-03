@@ -10,10 +10,11 @@ find_package(glfw3 CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 
-add_executable(${PROJECT_NAME}
+add_executable(Church-of-hopper
         src/main.cpp
-        src/dataLoader/Material.h
         src/dataLoader/Material.cpp
+        src/dataLoader/Mesh.cpp
+        src/dataLoader/stb_image.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE

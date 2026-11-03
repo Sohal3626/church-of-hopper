@@ -74,7 +74,6 @@ bool Mesh::loadObj(const string& filename) {
                 MeshGroup defaultGroup{};
                 defaultGroup.indexStart = 0;
                 defaultGroup.indexCount = 0;
-                defaultGroup.mtlId = 65535;
                 defaultGroup.mtlName = "default";
                 subMeshes.push_back(defaultGroup);
             }

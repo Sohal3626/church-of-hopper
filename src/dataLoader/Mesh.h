@@ -9,14 +9,12 @@
 #include <cstdint>
 #include <functional>
 #include <glm/glm.hpp>
-
-#include "../library/Geometry.h"
 #include "Material.h"
 
 struct alignas(16) Vertex {
-    vec4 position;
-    vec4 normal;
-    vec2 texCoord;
+    glm::vec4 position;
+    glm::vec4 normal;
+    glm::vec2 texCoord;
     float padding[2];
 
     bool operator==(const Vertex& v) const {
