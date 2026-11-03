@@ -62,7 +62,7 @@ mesh의 일부 점을 움직여 메뚜기 모델이 꿈틀거리는것 처럼 �
 ## 개발 진행상황
 
 - [ ] FPS Camera
-- [ ] Model Loading
+- [x] Model Loading
 - [ ] Basic Lighting
 - [ ] Shadow Mapping
 - [ ] Coloured Shadow Mapping
@@ -81,4 +81,9 @@ mesh의 일부 점을 움직여 메뚜기 모델이 꿈틀거리는것 처럼 �
 
 - **Author:** ffish.asia / floraZia.com
 - **Source:** https://sketchfab.com/3d-models/cc0-long-winged-rice-grasshopper-c719fe8ae71747f9ae63a0b8b18216fa
-- **License:** [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/)
+- **License:** CC0 1.0 Universal
+
+#### Gothic building with stained glass window
+- **Author:** Riruru
+- **Source:** https://sketchfab.com/3d-models/gothic-building-with-stained-glass-window-c09a7445958149d4a9cd8666011f145f
+- **License:** CC Attribution-NonCommercial
