@@ -32,15 +32,11 @@ public:
     struct MeshGroup {
         uint32_t indexStart;
         uint32_t indexCount;
-        uint16_t mtlId = 65535;
         std::string mtlName;
     };
     std::vector<MeshGroup> subMeshes;
 
     bool loadObj(const std::string& filename);
-    void linkMtl(const Material&);
-    [[nodiscard]] bool hasMtl() const;
-    [[nodiscard]] uint16_t getMtlId(int index) const;
 
 private:
     void set_indexStart();

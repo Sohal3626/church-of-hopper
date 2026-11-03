@@ -37,8 +37,6 @@ bool Material::loadMtl(const string &filename) {
             }else first = false;
             currMtl = material();
             iss >> trash >> currName;
-            currMtl.materialId = static_cast<uint16_t>(mtls.size());
-            currMtl.textureId = numeric_limits<uint16_t>::max();
         }else if (line.compare(0, 3, "Ns ") == 0) {
             iss >> trash >> currMtl.shininess;
         }else if (line.compare(0, 3, "Ka ") == 0) {

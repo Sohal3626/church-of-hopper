@@ -134,18 +134,3 @@ bool Mesh::loadObj(const string& filename) {
     }
     return true;
 }
-
-void Mesh::linkMtl(const Material &mtls) {
-    for (auto& group : subMeshes) group.mtlId = mtls.get(group.mtlName).materialId;
-}
-
-bool Mesh::hasMtl() const {
-    return ranges::any_of(subMeshes, [](const auto& g) { return g.mtlId != 65535; });
-}
-
-uint16_t Mesh::getMtlId(const int index) const {
-    for (const auto& g : subMeshes) {
-        if (index >= g.indexStart && index < g.indexStart + g.indexCount) return g.mtlId;
-    }
-    return 65535;
-}
