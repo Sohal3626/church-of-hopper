@@ -87,3 +87,9 @@ mesh의 일부 점을 움직여 메뚜기 모델이 꿈틀거리는것 처럼 �
 - **Author:** Riruru
 - **Source:** https://sketchfab.com/3d-models/gothic-building-with-stained-glass-window-c09a7445958149d4a9cd8666011f145f
 - **License:** CC Attribution-NonCommercial
+
+---
+## dataLoader
+
+OBJ, MTL 파일과 이미지 텍스처를 CPU 메모리로 로딩하는 라이브러리입니다.  
+자세한 사용방법은 [여기](docs/dataLoader.md)에서 확인할 수 있습니다.
