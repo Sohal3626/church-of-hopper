@@ -29,7 +29,7 @@ View Frustum 또는 Occlusion Query를 이용하여
 ## 추가 구현목표
 
 ### 기타 시각효과
-메뚜기가 께어났을 때의 공포 연출 추가로 역겨움을 더합니다.
+메뚜기가 깨어났을 때 여러 시각효과를 추가하여 공포 분위기를 조성합니다.
 
 ### 움직임 구현
 mesh의 일부 점을 움직여 메뚜기 모델이 꿈틀거리는것 처럼 만듭니다.
@@ -61,9 +61,9 @@ mesh의 일부 점을 움직여 메뚜기 모델이 꿈틀거리는것 처럼 �
 
 ## 개발 진행상황
 
-- [ ] FPS Camera
+- [x] FPS Camera
 - [x] Model Loading
-- [ ] Basic Lighting
+- [x] Basic Lighting
 - [ ] Shadow Mapping
 - [ ] Coloured Shadow Mapping
 - [ ] Volumetric Lighting
