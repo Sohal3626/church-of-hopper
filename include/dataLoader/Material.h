@@ -10,7 +10,7 @@
 #include <vector>
 #include <glm/glm.hpp>
 
-#include "Texture.h"
+#include "../../src/dataLoader/Texture.h"
 
 struct material {
     int16_t illumination = 0;
