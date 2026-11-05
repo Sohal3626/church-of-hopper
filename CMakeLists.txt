@@ -11,9 +11,20 @@ find_package(glm CONFIG REQUIRED)
 
 add_executable(Church-of-hopper
         src/main.cpp
-        src/dataLoader/Material.cpp
-        src/dataLoader/Mesh.cpp
-        src/dataLoader/stb_image.cpp
+        src/resource/Material.cpp
+        src/resource/Mesh.cpp
+        src/resource/stb_image.cpp
+        include/camera/Camera.h
+        src/camera/Camera.cpp
+        include/camera/Camera.h
+        src/camera/Camera.cpp
+        include/renderer/Shader.h
+        src/renderer/Shader.cpp
+        src/resource/texture.cpp
+        include/renderer/Renderer.h
+        src/renderer/Renderer.cpp
+        include/camera/camInput.h
+        src/camera/CamInput.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE

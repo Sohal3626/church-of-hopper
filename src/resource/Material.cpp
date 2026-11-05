@@ -1,19 +1,25 @@
 //
 // Created by desktop on 26. 4. 26..
 //
-#include "Material.h"
-#include "stb_image.h"
+#include "../../include/resource/Material.h"
 
 #include <istream>
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include <limits>
 #include <unordered_map>
+#include <filesystem>
+#include <algorithm>
 
 using namespace std;
 
+Material::Material(const string &filename){
+    if (!loadMtl(filename))
+        throw runtime_error("Failed to load MTL: " + filename);
+}
+
 bool Material::loadMtl(const string &filename) {
+    const filesystem::path mtlDirectory = filesystem::path(filename).parent_path();
     unordered_map<string, uint16_t> pathMap;
 
     ifstream in;
@@ -56,14 +62,32 @@ bool Material::loadMtl(const string &filename) {
         }else if (line.compare(0, 7, "map_Kd ") == 0 || line.compare(0, 7, "map_kd ") == 0) {
             string texturePath;
             iss >> trash >> texturePath;
-            if (!textures.contains(texturePath))
-                textures.try_emplace(texturePath, texturePath.c_str());
 
-            auto it = textures.find(texturePath);
-            currMtl.texture = &(it->second);
+            ranges::replace(texturePath, '\\', '/');
+
+            const string textureName = filesystem::path(texturePath).filename().string();
+            const string fullPath = (mtlDirectory / textureName).string();
+
+            if (!textures.contains(fullPath))
+                textures.try_emplace(fullPath, fullPath.c_str());
+
+            currMtl.texture = &textures.at(fullPath);
         }
     }
     if (currName.empty()) return false;
     mtls[currName] = currMtl;
     return true;
+}
+
+bool Material::uploadTextures() {
+    bool success = true;
+
+    for (auto& [name, texture] : textures) {
+        if (!texture.upload()) {
+            cerr << "Failed to upload texture: " << name << endl;
+            success = false;
+        }
+    }
+
+    return success;
 }

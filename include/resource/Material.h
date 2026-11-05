@@ -4,13 +4,11 @@
 
 #ifndef TOYRENDERER2_MATERIAL_H
 #define TOYRENDERER2_MATERIAL_H
-#include <cstdint>
 #include <map>
 #include <string>
-#include <vector>
 #include <glm/glm.hpp>
 
-#include "../../src/dataLoader/Texture.h"
+#include "Texture.h"
 
 struct material {
     int16_t illumination = 0;
@@ -28,8 +26,10 @@ struct material {
 
 class Material {
 public:
+    Material() = default;
+    explicit Material(const std::string& flename);
     bool loadMtl(const std::string &filename);
-
+    bool uploadTextures();
     [[nodiscard]] const material& get(const std::string &name) const {
         if (const material* m = find(name)) return *m;
         static constexpr material default_material{};
@@ -41,6 +41,11 @@ public:
         if (it == mtls.end()) return nullptr;
         return &it->second;
     }
+
+    Material(const Material&) = delete;
+    Material& operator=(const Material&) = delete;
+    Material(Material&&) = delete;
+    Material& operator=(Material&&) = delete;
 
 private:
     std::map<std::string,material> mtls;

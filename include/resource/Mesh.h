@@ -6,8 +6,6 @@
 #define TOYRENDERER2_MESH_H
 #include <string>
 #include <vector>
-#include <cstdint>
-#include <functional>
 #include <glm/glm.hpp>
 #include "Material.h"
 
@@ -24,6 +22,8 @@ struct alignas(16) Vertex {
 
 class Mesh {
 public:
+    Mesh() = default;
+    explicit Mesh(const std::string& filename);
     std::vector<Vertex> vertices;
     std::vector<uint32_t> indices;
 

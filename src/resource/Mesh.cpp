@@ -2,18 +2,21 @@
 // Created by desktop on 26. 3. 19..
 //
 
-#include "Mesh.h"
+#include "../../include/resource/Mesh.h"
 
 #include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include <unordered_map>
 #include <vector>
 #include <glm/glm.hpp>
 
 using namespace std;
 using namespace glm;
+
+Mesh::Mesh(const string& filename) {
+    loadObj(filename);
+}
 
 void Mesh::set_indexStart(){
     if (!subMeshes.empty()) {
@@ -82,7 +85,6 @@ bool Mesh::loadObj(const string& filename) {
             vector<FaceVertex> fvs;
             fvs.reserve(3);
             while (iss >> segment) {
-                Vertex vertex{};
                 ranges::replace(segment, '/', ' ');
                 istringstream ss(segment);
                 FaceVertex fv{-1, -1, -1};
@@ -99,7 +101,7 @@ bool Mesh::loadObj(const string& filename) {
             for (size_t i = 1; i < fvs.size() - 1; ++i) {
                 for (FaceVertex tri[3] = { fvs[0], fvs[i], fvs[i+1] }; const FaceVertex& fv : tri) {
                         if (!checkUnique.contains(fv)) {
-                            Vertex vertex;
+                            Vertex vertex{};
                             vec3 fvPos = positions[fv.position];
                             vertex.position = {fvPos.x, fvPos.y, fvPos.z, 1.};
                             if (fv.texCoord > -1) vertex.texCoord = uvs[fv.texCoord];
