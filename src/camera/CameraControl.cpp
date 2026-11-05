@@ -2,7 +2,7 @@
 // Created by Sohal03 on 26. 11. 5..
 //
 
-#include "camera/CamInput.h"
+#include "camera/CameraControl.h"
 
 void processInput(GLFWwindow* window, Camera& camera, const float delta) {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)

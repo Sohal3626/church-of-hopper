@@ -9,7 +9,7 @@
 #include <fstream>
 
 #include "camera/Camera.h"
-#include "camera/CamInput.h"
+#include "camera/CameraControl.h"
 #include "../include/resource/Mesh.h"
 #include "../include/resource/Material.h"
 #include "renderer/Renderer.h"

@@ -30,7 +30,7 @@ class Camera {
 public:
     void processKeyboard(CameraMovement direction, float deltaTime);
     void processMouse(float xoffset, float yoffset);
-    [[nodiscard]] glm::mat4 getViewMatrix() const { return lookAt(position, position + front, up); }
+    [[nodiscard]] glm::mat4 getViewMatrix() const { return glm::lookAt(position, position + front, up); }
     [[nodiscard]] glm::vec3 getPosition() const { return position; }
     [[nodiscard]] float getFov() const { return fov; }
 };

@@ -23,8 +23,8 @@ add_executable(Church-of-hopper
         src/resource/texture.cpp
         include/renderer/Renderer.h
         src/renderer/Renderer.cpp
-        include/camera/camInput.h
-        src/camera/CamInput.cpp
+        include/camera/CameraControl.h
+        src/camera/CameraControl.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE

@@ -89,7 +89,24 @@ mesh의 일부 점을 움직여 메뚜기 모델이 꿈틀거리는것 처럼 �
 - **License:** CC Attribution-NonCommercial
 
 ---
-## dataLoader
+## 모듈 및 API 문서
 
-OBJ, MTL 파일과 이미지 텍스처를 CPU 메모리로 로딩하는 라이브러리입니다.  
-자세한 사용방법은 [여기](docs/dataLoader.md)에서 확인할 수 있습니다.
+프로젝트는 기능별 모듈로 구성되어 있으며, 각 모듈의 사용 방법은 별도 문서에서 확인할 수 있습니다.
+
+### Resource
+
+OBJ 메시, MTL 재질 및 이미지 텍스처의 로딩과 관리를 담당합니다. 텍스처의 GPU 업로드 및 바인딩 기능도 제공합니다.
+
+[Resource API 문서](docs/resource.md)
+
+### Renderer
+
+OpenGL GPU 버퍼 관리, Mesh 렌더링, Shader 프로그램 및 Uniform 설정을 담당합니다.
+
+[Renderer API 문서](docs/renderer.md)
+
+### Camera
+
+카메라 이동 및 회전, View Matrix 계산, GLFW 키보드·마우스 입력 처리를 담당합니다.
+
+[Camera API 문서](docs/camera.md)
