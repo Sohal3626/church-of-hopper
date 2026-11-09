@@ -174,6 +174,125 @@ for (const auto& [indexStart, indexCount, mtlName] : mesh.subMeshes) {
 
 구조적 바인딩은 구조체 멤버의 선언 순서를 기준으로 동작합니다.
 
+
+### AABB — Axis-Aligned Bounding Box
+
+Mesh는 정점 데이터를 이용하여 AABB를 계산하고 보관합니다.
+
+AABB는 좌표축에 정렬된 경계 상자로, 각 축의 최소 좌표와 최대 좌표를 이용해 정의됩니다.
+
+#### 자료형
+
+`Mesh.h`에 다음 구조체가 선언되어 있습니다.
+
+```cpp
+struct AABB {
+    glm::vec3 min;
+    glm::vec3 max;
+};
+```
+
+AABB는 별도 클래스로 분리하지 않고 Mesh와 같은 헤더에서 정의합니다.
+
+#### Mesh API
+
+```cpp
+[[nodiscard]] const AABB& getAABB() const;
+```
+
+Mesh 내부에는 다음 멤버가 존재합니다.
+
+```cpp
+private:
+    AABB boundingBox{};
+
+    void computeBB();
+```
+
+| 멤버 | 역할 |
+|---|---|
+| `boundingBox` | 계산된 로컬 AABB 저장 |
+| `computeBB()` | 정점 데이터를 이용해 AABB 계산 |
+| `getAABB()` | 저장된 AABB를 읽기 전용 참조로 반환 |
+
+#### Bounding Box 계산
+
+`computeBB()`는 모든 정점을 순회하며 X, Y, Z 좌표의 최솟값과 최댓값을 계산합니다.
+
+```cpp
+void Mesh::computeBB() {
+    if (vertices.empty()) {
+        boundingBox = {};
+        return;
+    }
+
+    boundingBox.min = glm::vec3(vertices[0].position);
+    boundingBox.max = glm::vec3(vertices[0].position);
+
+    for (const auto& vertex : vertices) {
+        const glm::vec3 pos(vertex.position);
+
+        boundingBox.min = glm::min(boundingBox.min, pos);
+        boundingBox.max = glm::max(boundingBox.max, pos);
+    }
+}
+```
+
+정점 수를 `n`이라 할 때 시간 복잡도는 O(n)입니다.
+
+OBJ 로딩 시 한 번 계산하고 이후에는 저장된 값을 재사용하는 방식입니다.
+
+`getAABB()` 자체의 시간 복잡도는 O(1)입니다.
+
+#### OBJ 로딩과 연결
+
+`computeBB()`는 OBJ 파일의 정점 로딩이 완료된 후 호출해야 합니다.
+
+```cpp
+// Mesh::loadObj()의 성공 반환 직전
+
+computeBB();
+
+return true;
+```
+
+**주의:** 2026-11-09 기준으로 제공된 `Mesh.cpp`에는 `computeBB()` 구현은 있지만 `loadObj()`에서 호출하는 부분이 누락되어 있습니다.
+
+해당 호출을 추가해야 올바른 Bounding Box가 생성됩니다.
+
+#### Frustum과 연동
+
+`Mesh::getAABB()`는 원본 모델의 로컬 좌표계 AABB를 반환합니다.
+
+```cpp
+const AABB& box = mesh.getAABB();
+```
+
+Model Matrix를 적용한 시야 판정은 Frustum에서 수행합니다.
+
+```cpp
+Frustum frustum(projection * view);
+
+bool visible = frustum.intersectsAABB(
+    mesh.getAABB(),
+    model
+);
+```
+
+여기서 `model`은 Mesh를 렌더링할 때 Shader에 전달하는 Model Matrix와 동일해야 합니다.
+
+#### 제약 및 주의사항
+
+- AABB는 원본 Mesh의 로컬 좌표계에서 계산됩니다.
+- Model Matrix를 이용해 오브젝트를 이동하거나 회전해도 저장된 AABB는 자동으로 변경되지 않습니다.
+- 월드 좌표계 변환은 Frustum의 `intersectsAABB(box, model)`에서 수행합니다.
+- 현재 Mesh는 전체 모델에 대해 AABB 하나만 보관합니다.
+- SubMesh별 Bounding Box는 지원하지 않습니다.
+- 빈 Mesh의 AABB는 유효한 판정 대상으로 취급하면 안 됩니다.
+- `vertices`가 public이므로 외부에서 정점을 변경하면 저장된 AABB가 실제 Mesh와 달라질 수 있습니다.
+- `computeBB()`는 private이므로 외부에서 AABB를 다시 계산하는 공개 API는 없습니다.
+
+
 ## 5. Material
 
 `Material` 클래스는 MTL 파일을 읽어 재질 정보와 Texture 객체를 관리합니다.
