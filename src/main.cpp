@@ -94,9 +94,17 @@ int main() {
         glClearColor(0.1f, 0.1f, 0.12f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        const glm::mat4 projection = glm::perspective(glm::radians(
-            camera.getFov()), static_cast<float>(SCR_WIDTH) / SCR_HEIGHT, 0.1f, 100.0f
-            );
+        int width, height;
+        glfwGetFramebufferSize(window, &width, &height);
+
+        if (width == 0 || height == 0) {
+            glfwPollEvents();
+            continue;
+        }
+
+        constexpr float aspectRatio = static_cast<float>(SCR_WIDTH) / SCR_HEIGHT;
+
+        const glm::mat4 projection = camera.getProjectionMatrix(aspectRatio);
         const glm::mat4 view = camera.getViewMatrix();
 
         shader.use();
