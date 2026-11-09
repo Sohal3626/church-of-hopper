@@ -8,10 +8,14 @@
 #include <array>
 #include <glm/glm.hpp>
 
+#include "resource/Mesh.h"
+
 class Frustum {
 public:
     explicit Frustum(const glm::mat4& viewProjection);
     [[nodiscard]] bool containsPoint(const glm::vec3& point) const;
+    [[nodiscard]] bool intersectsAABB(const AABB& box, const glm::mat4& model) const;
+    [[nodiscard]] bool intersectsAABB(const AABB& box) const;
 
 private:
     struct Plane {
