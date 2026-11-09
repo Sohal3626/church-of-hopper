@@ -3,6 +3,7 @@
 //
 
 #include "../../include/resource/Mesh.h"
+#include "../../include/resource/Material.h"
 
 #include <algorithm>
 #include <fstream>
@@ -134,4 +135,20 @@ bool Mesh::loadObj(const string& filename) {
              << " Count: " << subMeshes[i].indexCount << endl;
     }
     return true;
+}
+
+void Mesh::computeBB() {
+    if (vertices.empty()) {
+        boundingBox = {};
+        return;
+    }
+
+    boundingBox.min = vec3(vertices[0].position);
+    boundingBox.max = vec3(vertices[0].position);
+
+    for (const auto& vertex : vertices) {
+        const vec3 pos(vertex.position);
+        boundingBox.min = min(boundingBox.min, pos);
+        boundingBox.max = max(boundingBox.max, pos);
+    }
 }

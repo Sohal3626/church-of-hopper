@@ -7,7 +7,6 @@
 #include <string>
 #include <vector>
 #include <glm/glm.hpp>
-#include "Material.h"
 
 struct alignas(16) Vertex {
     glm::vec4 position;
@@ -18,6 +17,11 @@ struct alignas(16) Vertex {
     bool operator==(const Vertex& v) const {
         return position == v.position && texCoord == v.texCoord && normal == v.normal;
     }
+};
+
+struct AABB {
+    glm::vec3 min;
+    glm::vec3 max;
 };
 
 class Mesh {
@@ -33,11 +37,15 @@ public:
         std::string mtlName;
     };
     std::vector<MeshGroup> subMeshes;
+    [[nodiscard]] const AABB& getAABB() const{ return boundingBox; }
 
     bool loadObj(const std::string& filename);
 
 private:
+    AABB boundingBox{};
+
     void set_indexStart();
+    void computeBB();
 };
 
 struct alignas(16) FaceVertex {
