@@ -25,6 +25,8 @@ add_executable(Church-of-hopper
         src/renderer/Renderer.cpp
         include/camera/CameraControl.h
         src/camera/CameraControl.cpp
+        include/camera/Frustum.h
+        src/camera/Frustum.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
