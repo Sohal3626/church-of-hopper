@@ -63,7 +63,14 @@ void Renderer::draw(const Mesh& mesh, Material& materials, const Shader& shader)
             shader.setBool("useTexture", false);
         }
 
+        shader.setVec3("material.ambient", mat.ambient);
         shader.setVec3("material.diffuse", mat.diffuse);
+        shader.setVec3("material.specular", mat.specular);
+        shader.setVec3("material.emission", mat.emission);
+        shader.setFloat("material.shininess", mat.shininess);
+        shader.setFloat("material.dissolve", mat.dissolve);
+        shader.setFloat("material.opticalDensity", mat.opticalDensity);
+        shader.setInt("material.illumination", mat.illumination);
 
         const auto offset = static_cast<uintptr_t>(indexStart) * sizeof(uint32_t);
         glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indexCount), GL_UNSIGNED_INT,

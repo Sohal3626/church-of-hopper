@@ -73,15 +73,23 @@ int main() {
     Mesh gothic(getPath("data/gothic.obj"));
     Material gothic_materials(getPath("data/gothic.mtl"));
 
+    Mesh stgl(getPath("data/rose_window.obj"));
+    Material stgl_material(getPath("data/rose_window.mtl"));
+
+
     // 셰이더 불러오기
     std::string vsPath = getPath("shaders/vshader.glsl");
     std::string fsPath = getPath("shaders/fshader.glsl");
 
     Shader shader(vsPath, fsPath);
+    Shader glass_shader(vsPath, getPath("shaders/glass.glsl"));
 
     glfwSetWindowUserPointer(window, &camera);
 
     auto model = glm::mat4(1.0f);
+    auto glassModel = glm::translate(glm::mat4(1.0f), glm::vec3(-4.0f, 5.35f, -0.46f));
+    glassModel = glm::rotate(glassModel, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    glassModel = glm::scale(glassModel, glm::vec3(1.2f, 1.2f, 1.2f));
 
     // 루프 시작
     while (!glfwWindowShouldClose(window)) {
@@ -116,6 +124,13 @@ int main() {
         shader.setVec3("viewPos", camera.getPosition());
 
         renderer.draw(gothic, gothic_materials, shader);
+
+        glass_shader.use();
+        glass_shader.setMat4("projection", projection);
+        glass_shader.setMat4("view", view);
+        glass_shader.setMat4("model", glassModel);
+
+        renderer.draw(stgl, stgl_material, glass_shader);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
