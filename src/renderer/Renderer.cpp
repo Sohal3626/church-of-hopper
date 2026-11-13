@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <ranges>
+#include <stdexcept>
 
 using namespace std;
 
@@ -77,6 +78,14 @@ void Renderer::draw(const Mesh& mesh, Material& materials, const Shader& shader)
                        reinterpret_cast<const void*>(offset));
     }
 
+    glBindVertexArray(0);
+}
+
+void Renderer::drawDepth(const Mesh& mesh) {
+    upload(mesh);
+    glBindVertexArray(meshBuffers.at(&mesh).VAO);
+    glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(mesh.indices.size()),
+                   GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
 }
 

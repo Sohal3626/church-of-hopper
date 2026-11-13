@@ -23,6 +23,7 @@ public:
     Renderer& operator=(const Renderer&) = delete;
 
     void draw(const Mesh& mesh, Material& materials, const Shader& shader);
+    void drawDepth(const Mesh& mesh);
 
     Renderer(Renderer&&) = delete;
     Renderer& operator=(Renderer&&) = delete;

@@ -2,6 +2,7 @@
 // Created by Sohal03 on 26. 11. 9..
 //
 #include "camera/Frustum.h"
+#include <algorithm>
 #include <glm/geometric.hpp>
 
 using namespace glm;
