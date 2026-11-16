@@ -23,6 +23,8 @@ add_executable(Church-of-hopper
         src/resource/texture.cpp
         include/renderer/Renderer.h
         src/renderer/Renderer.cpp
+        include/renderer/ShadowMap.h
+        src/renderer/ShadowMap.cpp
         include/camera/CameraControl.h
         src/camera/CameraControl.cpp
         include/camera/Frustum.h

@@ -63,7 +63,7 @@ mesh의 일부 점을 움직여 메뚜기 모델이 꿈틀거리는것 처럼 �
 - [x] FPS Camera
 - [x] Model Loading
 - [x] Basic Lighting
-- [ ] Shadow Mapping
+- [x] Shadow Mapping
 - [ ] Coloured Shadow Mapping
 - [ ] Volumetric Lighting
 - [ ] Runtime Material Switching
