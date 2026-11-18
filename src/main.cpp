@@ -68,8 +68,8 @@ void runScene(GLFWwindow* window) {
 
     glfwSetWindowUserPointer(window, &camera);
 
-    const glm::mat4 model(1.0f);
-    const glm::vec3 lightPos(5.0f);
+    constexpr glm::mat4 model(1.0f);
+    constexpr glm::vec3 lightPos{-4.0f, 5.35f, -0.46f};
     auto glassModel = glm::translate(glm::mat4(1.0f), glm::vec3(-4.0f, 5.35f, -0.46f));
     glassModel = glm::rotate(glassModel, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     glassModel = glm::scale(glassModel, glm::vec3(1.2f, 1.2f, 1.2f));
@@ -101,7 +101,7 @@ void runScene(GLFWwindow* window) {
         glClearColor(0.1f, 0.1f, 0.12f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        const float aspectRatio = static_cast<float>(width) / height;
+        const float aspectRatio = static_cast<float>(width) / static_cast<float>(height);
         const glm::mat4 projection = camera.getProjectionMatrix(aspectRatio);
         const glm::mat4 view = camera.getViewMatrix();
 
