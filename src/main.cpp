@@ -48,6 +48,9 @@ void runScene(GLFWwindow* window) {
     Camera camera;
     Renderer renderer;
 
+    Mesh grasshopper(getPath("data/grasshopper.obj"));
+    Material grasshopper_material(getPath("data/grasshopper.mtl"));
+
     Mesh gothic(getPath("data/gothic.obj"));
     Material gothic_materials(getPath("data/gothic.mtl"));
 
@@ -70,6 +73,7 @@ void runScene(GLFWwindow* window) {
 
     constexpr glm::mat4 model(1.0f);
     constexpr glm::vec3 lightPos{-4.0f, 5.35f, -0.46f};
+
     auto glassModel = glm::translate(glm::mat4(1.0f), glm::vec3(-4.0f, 5.35f, -0.46f));
     glassModel = glm::rotate(glassModel, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     glassModel = glm::scale(glassModel, glm::vec3(1.2f, 1.2f, 1.2f));
@@ -119,6 +123,14 @@ void runScene(GLFWwindow* window) {
             glass_shader->setMat4("model", glassModel);
             renderer.draw(*stgl, *stgl_material, *glass_shader);
         }
+
+        glm::mat4 grasshopperModel = glm::translate(glm::mat4(1.0f), glm::vec3(-2.5f, 1.3f, -1.0f));
+        grasshopperModel = glm::rotate(grasshopperModel, glm::radians(-180.f), glm::vec3(.0f, 1.f, .0f));
+        grasshopperModel = glm::scale(grasshopperModel, glm::vec3(.1f, .1f, .1f));
+
+        shader.use();
+        shader.setMat4("model", grasshopperModel);
+        renderer.draw(grasshopper, grasshopper_material, shader);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
